@@ -1,9 +1,9 @@
 import os
-import imp
 import argparse
 import shutil
 import moviepy.editor as mp
-
+import ConfigurationUtils as configurationUtil
+import distutils.util
 
 workplace = "/tmp/video_watermarker/"
 message_prefix = "WatermarkMessage"
@@ -21,20 +21,26 @@ def reconstruct_video(video, config, frames_dict):
 
         video = mp.CompositeVideoClip([video, image_clip], ismask=False)
 
-    video.write_videofile(config.output, codec='png')
+    video.write_videofile(config.output, codec='png', progress_bar=True, verbose=config.verbose)
+
 
 def apply_watermarking():
     video = mp.VideoFileClip(config.video)
 
-    frames_dict = config.watermarking_algorithm.add_watermark(video, config)
+    frames_dict = config.watermarking_algorithm.add_watermark(video, config, config.watermark_algorithm_aggressiveness)
     reconstruct_video(video, config, frames_dict)
 
 
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--video', required=True,  help='Full path of video to watermark')
+    parser.add_argument('--message', required=True,  help='Message to be watermarked to video')
+    parser.add_argument('--password', required=True,  help='Password for recovering message')
+    parser.add_argument('--watermark_algorithm', required=True,  help='Algorithm to use for watermarking')
+    parser.add_argument('--watermark_algorithm_aggressiveness', type=int, required=True,  help='Algorithms agressiveness between 0 - 100')
     parser.add_argument('--output', required=True,  help='Full path of output video')
     parser.add_argument('--workplace', default=workplace,  help='Workplace for the library')
+    parser.add_argument('--verbose', type=distutils.util.strtobool, default='true',  help='Log the outputs')
     return parser.parse_args()
 
 
@@ -48,11 +54,8 @@ def init():
     if os.path.isfile(config.output):
         os.remove(config.output)
 
-    config.message = message_prefix + "Nazli bir sapsiktir!"
-    config.watermarking_algorithm = \
-        imp.load_source('module.name', 'watermark_algorithms/DefaultWatermarkingAlgorithm.py')\
-            .DefaultWatermarkingAlgorithm()
-
+    config.message = configurationUtil.encode(config.password, message_prefix + config.message)
+    configurationUtil.set_watermark_algorithm(config)
 
 
 def destroy():
