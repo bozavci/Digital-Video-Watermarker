@@ -9,6 +9,9 @@ def set_distortion_algorithms(config):
         if distortion_algorithm_str == "CropEdges":
             distortion_algorithms.append(imp.load_source
                                                 ('module.name', 'distortion_algorithms/CropEdges.py').CropEdges())
+        if distortion_algorithm_str == "RGBChanger":
+            distortion_algorithms.append(imp.load_source
+                                         ('module.name', 'distortion_algorithms/RGBChanger.py').RGBChanger())
     config.distortion_algorithms = distortion_algorithms
 
 

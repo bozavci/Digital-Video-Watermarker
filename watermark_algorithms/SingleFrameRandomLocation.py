@@ -10,17 +10,15 @@ class RandomFramesRandomLocation:
         aggressiveness = int(100 / aggressiveness)
         dwa = RandomFramesRandomLocation()
         frames_dict = {}
-        first = True
         for (time, frame) in video.iter_frames(with_times=True):
-            if first or randint(0, aggressiveness) % aggressiveness == 0:
+            if randint(0, aggressiveness) % aggressiveness == 0:
                 image_file = iu.extract_image_from_clip(video, time, config)
                 frames_dict[time] = image_file
                 col = int(video.w/2) - (len(config.message) / 2)
                 row = randint(10, 20) * 10
                 dwa.encode_image(image_file, row, col, config.message)
-                first = False
-
-        return frames_dict
+                return
+        dwa.add_watermark(video, config, aggressiveness)
 
     @staticmethod
     def extract_message_from_video(video, config):
