@@ -12,6 +12,9 @@ def set_distortion_algorithms(config):
         if distortion_algorithm_str == "RGBChanger":
             distortion_algorithms.append(imp.load_source
                                          ('module.name', 'distortion_algorithms/RGBChanger.py').RGBChanger())
+        if distortion_algorithm_str == "BlackAndWhite":
+            distortion_algorithms.append(imp.load_source
+                                         ('module.name', 'distortion_algorithms/BlackAndWhite.py').BlackAndWhite())
     config.distortion_algorithms = distortion_algorithms
 
 
@@ -24,6 +27,12 @@ def set_watermark_algorithm(config):
         config.watermarking_algorithm = \
             imp.load_source('module.name', 'watermark_algorithms/RandomFramesRandomLocation.py') \
             .RandomFramesRandomLocation()
+    elif config.watermark_algorithm == "WhitePixelRandomFrames":
+        config.watermarking_algorithm = \
+            imp.load_source('module.name', 'watermark_algorithms/WhitePixelRandomFrames.py').WhitePixelRandomFrames()
+    elif config.watermark_algorithm == "BlackPixelRandomFrames":
+        config.watermarking_algorithm = \
+            imp.load_source('module.name', 'watermark_algorithms/BlackPixelRandomFrames.py').BlackPixelRandomFrames()
 
 
 def encode(key, clear):

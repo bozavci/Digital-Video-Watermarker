@@ -3,12 +3,12 @@ from PIL import Image
 from random import randint
 import ConfigurationUtils as configurationUtils
 
-class RandomFramesRandomLocation:
+class SingleFrameRandomLocation:
 
     @staticmethod
     def add_watermark(video, config, aggressiveness):
         aggressiveness = int(100 / aggressiveness)
-        dwa = RandomFramesRandomLocation()
+        dwa = SingleFrameRandomLocation()
         frames_dict = {}
         for (time, frame) in video.iter_frames(with_times=True):
             if randint(0, aggressiveness) % aggressiveness == 0:
@@ -19,10 +19,11 @@ class RandomFramesRandomLocation:
                 dwa.encode_image(image_file, row, col, config.message)
                 return
         dwa.add_watermark(video, config, aggressiveness)
+        return frames_dict
 
     @staticmethod
     def extract_message_from_video(video, config):
-        dwa = RandomFramesRandomLocation()
+        dwa = SingleFrameRandomLocation()
         for (time, frame) in video.iter_frames(with_times=True):
             image_file = iu.extract_image_from_clip(video, time, config)
             try:
