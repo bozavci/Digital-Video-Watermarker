@@ -161,3 +161,28 @@ Output:
 	[WatermarkingTester] >>>> Comparison video created!
 
 
+.. figure:: resources/test1.png
+    :align: center
+    :alt: alternate text
+    :figclass: align-center
+
+    Comparison video of a test with WhitePixelRandomFrames watermarking algorithm against BlackAndWhite distortion algotihm
+
+
+
+.. figure:: resources/test2.png
+    :align: center
+    :alt: alternate text
+    :figclass: align-center
+
+    Comparison video of a test with RandomFramesRandomLocation watermarking algorithm against CropEdges distortion algotihm
+
+
+
+.. figure:: resources/test3.png
+    :align: center
+    :alt: alternate text
+    :figclass: align-center
+
+    Comparison video of a test with RandomFramesSingleLocation watermarking algorithm against RGBChanger distortion algotihm
+
