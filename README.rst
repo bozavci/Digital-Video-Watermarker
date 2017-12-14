@@ -114,6 +114,7 @@ Distortion Algorithms
 * **CropEdges**  : Crops the edges of the video by 120px from each side
 * **RGBChanger** : Randomly changes the colors of the video
 * **BlackAndWhite** : Converts the video to a Black & White 
+* **PepperAndSalt** : Puts random black and white pixels in the video in random frames
 
 Testing
 ============

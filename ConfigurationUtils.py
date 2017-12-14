@@ -15,6 +15,9 @@ def set_distortion_algorithms(config):
         if distortion_algorithm_str == "BlackAndWhite":
             distortion_algorithms.append(imp.load_source
                                          ('module.name', 'distortion_algorithms/BlackAndWhite.py').BlackAndWhite())
+        if distortion_algorithm_str == "PepperAndSalt":
+            distortion_algorithms.append(imp.load_source
+                                         ('module.name', 'distortion_algorithms/PepperAndSalt.py').PepperAndSalt())
     config.distortion_algorithms = distortion_algorithms
 
 
