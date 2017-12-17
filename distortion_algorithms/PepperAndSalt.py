@@ -5,9 +5,16 @@ from random import randint
 import VideoUtils as iu
 from PIL import Image
 import moviepy.editor as mp
-
+import os, shutil
 
 class PepperAndSalt:
+
+    @staticmethod
+    def init(config):
+
+        if os.path.isdir(config.workplace):
+            shutil.rmtree(config.workplace)
+        os.mkdir(config.workplace)
 
     @staticmethod
     def distort(video_input, video_output, config):
@@ -16,8 +23,10 @@ class PepperAndSalt:
         frame_duration = 1 / clip.fps
 
         dwa = PepperAndSalt()
+        dwa.init(config)
+
         for (time, frame) in clip.iter_frames(with_times=True):
-            if randint(0, 10) % 10 == 0:
+            if randint(0, 2) % 2 == 0:
                 image_file = iu.extract_image_from_clip(clip, time, config)
                 dwa.encode_image(image_file)
                 image_clip = mp.ImageClip(image_file) \

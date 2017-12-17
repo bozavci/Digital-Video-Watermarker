@@ -17,7 +17,7 @@ class SingleFrameRandomLocation:
                 col = int(video.w/2) - (len(config.message) / 2)
                 row = randint(10, 20) * 10
                 dwa.encode_image(image_file, row, col, config.message)
-                return
+                return frames_dict
         dwa.add_watermark(video, config, aggressiveness)
         return frames_dict
 

@@ -30,6 +30,10 @@ def set_watermark_algorithm(config):
         config.watermarking_algorithm = \
             imp.load_source('module.name', 'watermark_algorithms/RandomFramesRandomLocation.py') \
             .RandomFramesRandomLocation()
+    elif config.watermark_algorithm == "SingleFrameRandomLocation":
+        config.watermarking_algorithm = \
+            imp.load_source('module.name', 'watermark_algorithms/SingleFrameRandomLocation.py') \
+            .SingleFrameRandomLocation()
     elif config.watermark_algorithm == "WhitePixelRandomFrames":
         config.watermarking_algorithm = \
             imp.load_source('module.name', 'watermark_algorithms/WhitePixelRandomFrames.py').WhitePixelRandomFrames()
